@@ -1,0 +1,22 @@
+{
+  "name": "rms.backend",
+  "version": "1.0.0-beta.1",
+  "description": "Restful API for RMS",
+  "main": "app.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://gitlab.com/DevProjectsGroup/RMS.Backend.git"
+  },
+  "author": "Ian Gerrebrands",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://gitlab.com/DevProjectsGroup/RMS.Backend/issues"
+  },
+  "homepage": "https://gitlab.com/DevProjectsGroup/RMS.Backend#README",
+  "dependencies": {
+    "express": "^4.15.4"
+  }
+}
