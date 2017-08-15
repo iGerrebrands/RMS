@@ -1,20 +1,33 @@
-const express = require('express');
+import express from 'express';
+import routes from './src/routes';
+import Config from './config.json';
+import mongoose from 'mongoose';
+import Promise from 'promise';
+import bodyParser from 'body-parser';
+
+mongoose.Promise = Promise;
+
 const app = express();
-const routes = require('./routes');
-const MongoClient = require('mongodb').MongoClient;
-const Database = require('./database');
-const Config = require('./config.json');
+
+app.use(bodyParser.json());
+app.use(bodyParser.urlencoded({
+    extended: true
+}));
 
 app.use('/api', routes);
 
-MongoClient.connect(`mongodb://${Config.DATABASE_IP}:${Config.DATABASE_PORT}/${Config.PROJECT_NAME}`, (err, database) => {
-    if(err) return console.log(err);
-    Database.setDatabase(database);
-    console.log(`Database connected at port ${Config.DATABASE_PORT}`);
-    Database.setupDatabase(() => {
+mongoose.connect(`mongodb://${Config.DATABASE_IP}:${Config.DATABASE_PORT}/${Config.PROJECT_NAME}`, {
+        useMongoClient: true
+    })
+    .then(() => {
+        console.log(`Database Connected on Port: ${Config.DATABASE_PORT}`);
+
         app.listen(Config.APPLICATION_PORT, () => {
             console.log(`RESTful API started at port ${Config.APPLICATION_PORT}`);
         });
-    });
-});
+    })
+    .catch((err) => console.log(err));
+
+
+
 
