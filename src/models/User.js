@@ -4,11 +4,11 @@ import mongoose from 'mongoose';
 const userSchema = new Schema({
     name: {
         type: String,
-        required: true
+        required: [true, "A value name is required"]
     },
     email: {
         type: String,
-        required: true
+        required: [true, "A value email is required"]
     }
 });
 

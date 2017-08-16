@@ -4,6 +4,7 @@ import Config from './config.json';
 import mongoose from 'mongoose';
 import Promise from 'promise';
 import bodyParser from 'body-parser';
+import ErrorHandler from './src/ErrorHandler';
 
 mongoose.Promise = Promise;
 
@@ -15,6 +16,8 @@ app.use(bodyParser.urlencoded({
 }));
 
 app.use('/api', routes);
+
+app.use(ErrorHandler);
 
 mongoose.connect(`mongodb://${Config.DATABASE_IP}:${Config.DATABASE_PORT}/${Config.PROJECT_NAME}`, {
         useMongoClient: true
