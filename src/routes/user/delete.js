@@ -1,8 +1,9 @@
 import User from '../../models/User';
 
-export default (req, res) => {
+export default (req, res, next) => {
 
-    User.remove({ _id: req.params.id })
-        .then((result) => result.result.n ? res.status(200).json({data: "Deleted"}) : res.status(400).json({data: "Not deleted"}));
+    User.findOneAndRemove({ _id: req.params.id })
+        .then((result) => res.status(200).json({data: { message: "Deleted"}}))
+        .catch(next);
 
 };

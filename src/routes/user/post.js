@@ -1,6 +1,6 @@
 import User from '../../models/User';
 
-export default (req, res) => {
+export default (req, res, next) => {
 
     const user = new User(req.body);
 
@@ -8,8 +8,6 @@ export default (req, res) => {
         .then(() => {
             res.status(200).json({data: {saved: true}});
         })
-        .catch((err) => {
-            res.status(404).json({data: {saved: false}});
-        });
+        .catch(next);
 
 };
